@@ -28,7 +28,7 @@ export default class register extends Component {
 	}
 
 	userRegister = () => {
-		//alert('ok');
+		alert('ok');
 
 		const { userName } = this.state;
 		const { userEmail } = this.state;

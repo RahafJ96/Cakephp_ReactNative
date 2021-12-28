@@ -1,7 +1,7 @@
 <?php
 
 $HostName = "localhost"; 
-$DatabaseName = "rahaf_database";
+$DatabaseName = "assessment";
 $HostUser = "rahaf_username";
 $HostPass = "123456789";
  

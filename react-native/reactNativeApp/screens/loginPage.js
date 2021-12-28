@@ -24,7 +24,7 @@ const loginPage = ({ navigation }) => {
                 source={require('../assets/mmken-logo.png')}
                 style={styles.logo}
             />
-            <Text style={styles.text}>Welcome to Mumkenn App</Text>
+            <Text style={styles.text}>Welcome to Our App</Text>
 
             <FormInput
                 labelValue={email}

@@ -25,7 +25,7 @@ $password = $obj['password'];
 $mobile = $obj['mobile'];
 
 //Checking Email is already exist or not using SQL query.
-$CheckSQL = "SELECT * FROM customer_users WHERE email='$email'";
+$CheckSQL = "SELECT * FROM users WHERE email='$email'";
 
 // Executing SQL Query.
 $check = mysqli_fetch_array(mysqli_query($con,$CheckSQL));
@@ -45,7 +45,7 @@ $EmailExistJson = json_encode($EmailExistMSG);
  else{
  
  // Creating SQL query and insert the record into MySQL database table.
-$Sql_Query = "insert into customer_users (name,email,password,mobile) values ('$name','$email','$password','$mobile')";
+$Sql_Query = "insert into users (name,email,password,mobile) values ('$name','$email','$password','$mobile')";
  
  
  if(mysqli_query($con,$Sql_Query)){
