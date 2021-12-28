@@ -1,112 +1,110 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Component } from "react/cjs/react.production.min";
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      mobile: "",
+    };
+  }
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  SignUpbtn = () => {
+    var name = this.state.name;
+    var email = this.state.email;
+    var password = this.state.constomer_password;
+    var mobile = this.state.mobile;
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+    if (
+      name.length == 0 ||
+      email.length == 0 ||
+      password.length == 0 ||
+      mobile.length == 0
+    ) {
+      alert("Required Field is Missing");
+    } else {
+      var InsertAPIurl = "http://10.0.2.2:80/api/insert.php";
+      var headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+      var Data = {
+        name: name,
+        email: email,
+        password: password,
+        mobile: mobile,
+      };
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      fetch(InsertAPIurl, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(Data),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          alert(response[0].Message);
+        })
+        .catch((error) => {
+          alert(" ERROR " + error);
+        });
+    }
   };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+  render() {
+    return (
+      <View style={styles.ViewStyle}>
+        <Text>Hello World </Text>
+        <TextInput
+          placeholder="Enter your full name"
+          style={styles.txtStyle}
+          onChangeText={(constomer_name) => this.setState({ constomer_name })}
+        />
+
+        <TextInput
+          placeholder="Enter your email"
+          style={styles.txtStyle}
+          onChangeText={(constomer_email) => this.setState({ constomer_email })}
+        />
+
+        <TextInput
+          placeholder="Enter new password"
+          style={styles.txtStyle}
+          onChangeText={(constomer_password) =>
+            this.setState({ constomer_password })
+          }
+        />
+
+        <TextInput
+          placeholder="Enter your mobile phone"
+          style={styles.txtStyle}
+          onChangeText={(constomer_mobile) =>
+            this.setState({ constomer_mobile })
+          }
+        />
+
+        <Button title="Sign up" onPress={this.SignUpbtn} />
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  ViewStyle: {
+    flex: 1,
+    padding: 20,
+    marginTop: 10,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+
+  txtStyle: {
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    marginBottom: 20,
   },
 });
-
-export default App;
